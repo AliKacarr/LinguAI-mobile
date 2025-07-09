@@ -189,53 +189,55 @@ export default function ExerciseScreen() {
         </View>
       </View>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.exerciseCard}>
-          <Text style={styles.sourceLanguageText}>
-            {exerciseState.sourceLanguage}
-          </Text>
-          <Text style={styles.sourceSentence}>
-            {exerciseState.sourceSentence}
-          </Text>
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputLabel}>
-            {exerciseState.targetLanguage} çeviriniz:
-          </Text>
-          <TextInput
-            style={styles.textInput}
-            value={exerciseState.userTranslation}
-            onChangeText={(text) => setExerciseState(prev => ({ ...prev, userTranslation: text }))}
-            placeholder={`${exerciseState.targetLanguage} cümlesini buraya yazın...`}
-            multiline
-            numberOfLines={3}
-            textAlignVertical="top"
-          />
-        </View>
-        {exerciseState.showResult && (
-          <View style={styles.resultContainer}>
-            <Text style={[
-              styles.resultText,
-              { color: exerciseState.result === 'Doğru!' ? '#4CAF50' : '#F44336' }
-            ]}>
-              {exerciseState.result}
+        <View style={styles.exerciseContent}>
+          <View style={styles.exerciseCard}>
+            <Text style={styles.sourceLanguageText}>
+              {exerciseState.sourceLanguage}
+            </Text>
+            <Text style={styles.sourceSentence}>
+              {exerciseState.sourceSentence}
             </Text>
           </View>
-        )}
-        <View style={styles.buttonContainer}>
-          {!exerciseState.showResult ? (
-            <Button
-              title={exerciseState.isChecking ? "Kontrol Ediliyor..." : "Kontrol Et"}
-              onPress={handleCheckTranslation}
-              variant="primary"
-              disabled={exerciseState.isChecking}
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>
+              {exerciseState.targetLanguage} çeviriniz:
+            </Text>
+            <TextInput
+              style={styles.textInput}
+              value={exerciseState.userTranslation}
+              onChangeText={(text) => setExerciseState(prev => ({ ...prev, userTranslation: text }))}
+              placeholder={`${exerciseState.targetLanguage} cümlesini buraya yazın...`}
+              multiline
+              numberOfLines={3}
+              textAlignVertical="top"
             />
-          ) : (
-            <Button
-              title="Sonraki Egzersiz"
-              onPress={handleNextExercise}
-              variant="primary"
-            />
+          </View>
+          {exerciseState.showResult && (
+            <View style={styles.resultContainer}>
+              <Text style={[
+                styles.resultText,
+                { color: exerciseState.result === 'Doğru!' ? '#4CAF50' : '#F44336' }
+              ]}>
+                {exerciseState.result}
+              </Text>
+            </View>
           )}
+          <View style={styles.buttonContainer}>
+            {!exerciseState.showResult ? (
+              <Button
+                title={exerciseState.isChecking ? "Kontrol Ediliyor..." : "Kontrol Et"}
+                onPress={handleCheckTranslation}
+                variant="primary"
+                disabled={exerciseState.isChecking}
+              />
+            ) : (
+              <Button
+                title="Sonraki Egzersiz"
+                onPress={handleNextExercise}
+                variant="primary"
+              />
+            )}
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -249,7 +251,16 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    padding: 24,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingBottom: 32,
+  },
+  exerciseContent: {
+    width: '100%',
+    maxWidth: 600,
+    alignSelf: 'center',
+    paddingHorizontal: 16,
+    marginTop: 12,
   },
   loadingContainer: {
     flex: 1,
@@ -263,13 +274,14 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    marginBottom: 32,
+    marginBottom: 0,
   },
   levelText: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#1C1C1E',
-    marginBottom: 8,
+    marginBottom: 18,
+    marginTop: 20,
   },
   instructionText: {
     fontSize: 16,
@@ -307,6 +319,7 @@ const styles = StyleSheet.create({
   inputLabel: {
     fontSize: 16,
     color: '#1C1C1E',
+    paddingLeft: 5,
     marginBottom: 8,
     fontWeight: '600',
   },

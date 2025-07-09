@@ -37,6 +37,13 @@ export default function LevelScreen({ navigation }: any) {
     });
   };
 
+  const handleViewWords = () => {
+    router.push({
+      pathname: '/level/words' as any,
+      params: { level: level as string }
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerSafeArea}>
@@ -49,8 +56,14 @@ export default function LevelScreen({ navigation }: any) {
         >
           <Text style={styles.buttonText}>ÇALIŞMAYI BAŞLAT</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, styles.buttonGreenDark]}
+          onPress={handleViewWords}
+        >
+          <Text style={styles.buttonText}>KELİMELER</Text>
+        </TouchableOpacity>
         <TouchableOpacity 
-          style={[styles.button, styles.buttonGreen]} 
+          style={[styles.button, styles.buttonOrange]} 
           onPress={handleViewHistory}
         >
           <Text style={styles.buttonText}>GEÇMİŞ EGZERSİZLER</Text>
@@ -110,5 +123,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 32,
     marginTop: 12,
+  },
+  buttonYellow: {
+    backgroundColor: '#FFD600',
+  },
+  buttonPurple: {
+    backgroundColor: '#7C4DFF',
+  },
+  buttonGreenDark: {
+    backgroundColor: '#31B94D',
+  },
+  buttonOrange: {
+    backgroundColor: '#FFA500',
   },
 }); 
