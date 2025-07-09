@@ -1,9 +1,12 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useLayoutEffect } from 'react';
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function LevelScreen({ navigation }: any) {
   const { level } = useLocalSearchParams();
+  const router = useRouter();
+  const { user } = useAuth();
 
   // Header başlığını sadece seviye kodu olarak ayarla
   useLayoutEffect(() => {
@@ -12,14 +15,44 @@ export default function LevelScreen({ navigation }: any) {
     }
   }, [level, navigation]);
 
+  const handleStartExercise = () => {
+    if (!user) {
+      alert('Lütfen önce giriş yapın');
+      return;
+    }
+    router.push({
+      pathname: '/exercise',
+      params: { level: level as string }
+    });
+  };
+
+  const handleViewHistory = () => {
+    if (!user) {
+      alert('Lütfen önce giriş yapın');
+      return;
+    }
+    router.push({
+      pathname: '/history',
+      params: { level: level as string }
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.levelTitle}>Seçilen Seviye: {level}</Text>
+      <View style={styles.headerSafeArea}>
+        <Text style={styles.levelTitle}>Seçilen Seviye: {level}</Text>
+      </View>
       <View style={styles.buttonGroup}>
-        <TouchableOpacity style={[styles.button, styles.buttonBlue]} onPress={() => {}}>
+        <TouchableOpacity 
+          style={[styles.button, styles.buttonBlue]} 
+          onPress={handleStartExercise}
+        >
           <Text style={styles.buttonText}>ÇALIŞMAYI BAŞLAT</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.buttonGreen]} onPress={() => {}}>
+        <TouchableOpacity 
+          style={[styles.button, styles.buttonGreen]} 
+          onPress={handleViewHistory}
+        >
           <Text style={styles.buttonText}>GEÇMİŞ EGZERSİZLER</Text>
         </TouchableOpacity>
       </View>
@@ -71,5 +104,11 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: 'bold',
     letterSpacing: 1,
+  },
+  headerSafeArea: {
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 32,
+    marginTop: 12,
   },
 }); 

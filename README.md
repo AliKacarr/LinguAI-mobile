@@ -1,50 +1,112 @@
-# Welcome to your Expo app 👋
+# LinguAI Mobile
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+LinguAI, yapay zeka destekli dil öğrenme uygulamasıdır. Kullanıcılar farklı seviyelerde (A1-C2) kelime çalışması yapabilir ve Gemini AI ile cümle çevirisi alıştırmaları gerçekleştirebilir.
 
-## Get started
+## Özellikler
 
-1. Install dependencies
+- **Seviye Bazlı Öğrenme**: A1, A2, B1, B2, C1, C2 seviyelerinde kelime çalışması
+- **Yapay Zeka Destekli Cümle Üretimi**: Gemini AI ile seviyeye uygun cümleler oluşturma
+- **Çeviri Kontrolü**: Kullanıcı çevirilerinin AI tarafından kontrol edilmesi
+- **Egzersiz Geçmişi**: Tamamlanan egzersizlerin kaydedilmesi ve görüntülenmesi
+- **Kullanıcı Kimlik Doğrulama**: Supabase ile güvenli giriş sistemi
 
-   ```bash
-   npm install
-   ```
+## Teknolojiler
 
-2. Start the app
+- **Frontend**: React Native + Expo
+- **Backend**: Supabase (PostgreSQL)
+- **AI**: Google Gemini API
+- **Authentication**: Supabase Auth
 
-   ```bash
-   npx expo start
-   ```
+## Kurulum
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+1. Projeyi klonlayın:
 
 ```bash
-npm run reset-project
+git clone https://github.com/AliKacarr/LinguAI-mobile.git
+cd LinguAI-mobile
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Bağımlılıkları yükleyin:
 
-## Learn more
+```bash
+npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+3. Supabase veritabanını kurun:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+   - Supabase projesi oluşturun
+   - `database_schema.sql` dosyasını Supabase SQL editöründe çalıştırın
+   - Supabase URL ve API anahtarını `lib/supabase.ts` dosyasında güncelleyin
 
-## Join the community
+4. Gemini API anahtarını ayarlayın:
 
-Join our community of developers creating universal apps.
+   - `lib/gemini.ts` dosyasında API anahtarını güncelleyin
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+5. Uygulamayı başlatın:
+
+```bash
+npx expo start
+```
+
+## Veritabanı Yapısı
+
+### Tablolar
+
+- **language_levels**: Dil seviyeleri (A1-C2)
+- **example_words**: Seviyeye göre kelime çiftleri
+- **exercise_history**: Kullanıcı egzersiz geçmişi
+- **users**: Kullanıcı bilgileri
+
+### Örnek Veri Ekleme
+
+```sql
+-- B2 seviyesinde örnek kelime ekleme
+INSERT INTO public.example_words (level_id, turkish, english)
+VALUES
+  ((SELECT id FROM public.language_levels WHERE level = 'B2'), 'tartışma', 'argument');
+```
+
+## Kullanım
+
+1. **Kayıt Ol/Giriş Yap**: Uygulamaya giriş yapın
+2. **Seviye Seçin**: Ana ekranda çalışmak istediğiniz seviyeyi seçin
+3. **Çalışmayı Başlatın**: Seviye ekranında "Çalışmayı Başlat" butonuna tıklayın
+4. **Çeviri Yapın**: AI tarafından oluşturulan cümleyi çevirin
+5. **Kontrol Edin**: "Kontrol Et" butonuna basarak çevirinizi kontrol edin
+6. **Geçmişi Görüntüleyin**: "Geçmiş Egzersizler" ile önceki çalışmalarınızı inceleyin
+
+## API Kullanımı
+
+### Gemini AI Prompts
+
+**Cümle Üretimi:**
+
+```
+Create a short {source language} sentence that contains only this {source language} word and is appropriate for {level} difficulty. word={word}
+```
+
+**Çeviri Kontrolü:**
+
+```
+English sentence: "{english_sentence}"
+User's Turkish sentence: "{user_translation}"
+If the given English sentence and the user's Turkish sentence answer match, just write me "True". If the user's translation is wrong, just write me the correct translation of the sentence
+```
+
+## Katkıda Bulunma
+
+1. Fork yapın
+2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
+3. Değişikliklerinizi commit edin (`git commit -m 'Add some amazing feature'`)
+4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
+5. Pull Request oluşturun
+
+## Lisans
+
+Bu proje MIT lisansı altında lisanslanmıştır.
+
+## İletişim
+
+Ali Kacar - [@AliKacarr](https://github.com/AliKacarr)
+
+Proje Linki: [https://github.com/AliKacarr/LinguAI-mobile](https://github.com/AliKacarr/LinguAI-mobile)
