@@ -1,19 +1,21 @@
-# LinguAI Mobile
+# LinguAI
 
-LinguAI, yapay zeka destekli dil öğrenme uygulamasıdır. Kullanıcılar farklı seviyelerde (A1-C2) kelime çalışması yapabilir ve Gemini AI ile cümle çevirisi alıştırmaları gerçekleştirebilir.
+LinguAI, yapay zeka destekli interaktif dil öğrenme uygulamasıdır. Kullanıcılar A1'den C2'ye kadar farklı seviyelerde kelime çalışması yapabilir, Gemini AI ile cümle çevirisi alıştırmaları gerçekleştirebilir ve öğrenme performanslarını detaylı olarak takip edebilir.
 
 ## Özellikler
 
 - **Seviye Bazlı Öğrenme**: A1, A2, B1, B2, C1, C2 seviyelerinde kelime çalışması
 - **Yapay Zeka Destekli Cümle Üretimi**: Gemini AI ile seviyeye uygun cümleler oluşturma
 - **Çeviri Kontrolü**: Kullanıcı çevirilerinin AI tarafından kontrol edilmesi
-- **Egzersiz Geçmişi**: Tamamlanan egzersizlerin kaydedilmesi ve görüntülenmesi
+- **Kelime Görüntüleme**: Her seviyeye ait kelime gruplarını görüntüleme ve inceleme
+- **Egzersiz Geçmişi**: Tamamlanan egzersizlerin detaylı analizi ve görüntülenmesi
+- **Performans Takibi**: Doğru/yanlış çeviri istatistikleri ve gelişim analizi
 - **Kullanıcı Kimlik Doğrulama**: Supabase ile güvenli giriş sistemi
 
 ## Teknolojiler
 
 - **Frontend**: React Native + Expo
-- **Backend**: Supabase (PostgreSQL)
+- **Backend**: Supabase
 - **AI**: Google Gemini API
 - **Authentication**: Supabase Auth
 
@@ -54,7 +56,7 @@ npx expo start
 
 - **language_levels**: Dil seviyeleri (A1-C2)
 - **example_words**: Seviyeye göre kelime çiftleri
-- **exercise_history**: Kullanıcı egzersiz geçmişi
+- **exercise_history**: Kullanıcı egzersiz geçmişi (kaynak cümle, kullanıcı çevirisi, doğruluk durumu, doğru çeviri)
 - **users**: Kullanıcı bilgileri
 
 ### Örnek Veri Ekleme
@@ -70,10 +72,13 @@ VALUES
 
 1. **Kayıt Ol/Giriş Yap**: Uygulamaya giriş yapın
 2. **Seviye Seçin**: Ana ekranda çalışmak istediğiniz seviyeyi seçin
-3. **Çalışmayı Başlatın**: Seviye ekranında "Çalışmayı Başlat" butonuna tıklayın
+3. **Seviye Menüsü**: Seviye ekranında üç seçenek bulunur:
+   - **Çalışmayı Başlat**: AI destekli çeviri egzersizlerini başlatır
+   - **Kelimeler**: Seviyeye ait tüm kelime gruplarını görüntüler
+   - **Geçmiş Egzersizler**: O seviyede tamamlanan egzersizlerin detaylı analizini gösterir
 4. **Çeviri Yapın**: AI tarafından oluşturulan cümleyi çevirin
 5. **Kontrol Edin**: "Kontrol Et" butonuna basarak çevirinizi kontrol edin
-6. **Geçmişi Görüntüleyin**: "Geçmiş Egzersizler" ile önceki çalışmalarınızı inceleyin
+6. **Performansı İzleyin**: Geçmiş egzersizler sayfasında doğru/yanlış oranlarınızı ve gelişiminizi takip edin
 
 ## API Kullanımı
 
